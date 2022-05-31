@@ -14,12 +14,12 @@ export default {
     path: 'migrations',
     pattern: /^[\w-]+\d+\.(ts|js)$/,
   },
-  // seeder: {
-  //   path: 'seeders',
-  //   pathTs: undefined,
-  //   defaultSeeder: 'DatabaseSeeder',
-  //   glob: '!(*.d).{js,ts}',
-  //   emit: 'ts',
-  //   fileName: (className: string) => className,
-  // },
+  seeder: {
+    path: 'dist/seeders',
+    pathTs: 'src/seeders',
+    defaultSeeder: 'DatabaseSeeder',
+    glob: '!(*.d).{js,ts}',
+    emit: 'ts',
+    fileName: (className: string) => className,
+  },
 } as Options<IDatabaseDriver>;

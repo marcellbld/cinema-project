@@ -11,7 +11,7 @@
   "scripts": {
     "prebuild": "npx rimraf dist",
     "build": "nest build",
-    "heroku-postbuild": "npm run build && npm run migrate:prod",
+    "heroku-postbuild": "npm run build && npm run migrate:prod && npx mikro-orm schema:fresh -r --seed",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
