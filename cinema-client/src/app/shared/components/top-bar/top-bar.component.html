@@ -1,0 +1,17 @@
+<mat-toolbar>
+  <div>
+    <span><a mat-button [routerLink]="'/'"> My Cinema</a></span>
+  </div>
+  <div>
+    <div *ngIf="this.authService.isLoggedIn(); else notLoggedIn"
+    fxLayout="row" fxLayoutAlign="center center">
+      <button mat-button color="primary" (click)="this.editProfile()"><span class="mat-subheading-2" [style.margin-right]="'5px'">{{this.authService.loggedInUser()?.username}}</span><mat-icon>person</mat-icon></button>
+      <button mat-icon-button color="warn" (click)="this.logout()"><mat-icon>logout</mat-icon></button>
+    </div>
+    <ng-template #notLoggedIn>
+      <button mat-mini-fab color="primary" [routerLink]="'login'">
+        <mat-icon>login</mat-icon>
+      </button>
+    </ng-template>
+  </div>
+</mat-toolbar>

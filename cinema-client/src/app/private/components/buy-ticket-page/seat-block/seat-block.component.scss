@@ -1,0 +1,28 @@
+.block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 5px;
+}
+
+.empty {
+  background-color: aliceblue;
+  border: 1px solid rgb(206, 216, 224);
+}
+
+.reserved {
+  background-color: orangered;
+  border: 1px solid orangered;
+}
+
+.self-reserved {
+  background-color: rgb(58, 151, 212);
+  border: 1px solid rgb(7, 108, 190);
+}
+
+.selected {
+  background-color: rgb(115, 255, 80);
+  border: 1px solid rgb(44, 173, 11);
+}

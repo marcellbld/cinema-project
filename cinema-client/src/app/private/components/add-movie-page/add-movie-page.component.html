@@ -1,0 +1,71 @@
+<div fxLayout="column" fxLayoutAlign="start center">
+  <h2>Add Movie</h2>
+  <div>
+    <form [formGroup]="form" (ngSubmit)="create()" fxLayout="column">
+      <img [src]="imageUrl.value" width="200px" [style.border-radius]="'5px'">
+      <button type="button" mat-raised-button color="primary" [style.margin]="'15px'" (click)="this.randomizeImage()">
+        Randomize Image
+      </button>
+      <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput type="text" formControlName="title"/>
+        <mat-error *ngIf="title.hasError('required')">
+          Title is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="title.hasError('minlength') || title.hasError('maxlength')">
+          Required length is between <strong>2 and 30 character length</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Categories</mat-label>
+        <mat-chip-list #chipList aria-label="Category selection">
+          <mat-chip
+            *ngFor="let category of selectedCategories"
+            (removed)="remove(category)">
+            {{category.name}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+          <input
+            placeholder="New category..."
+            #fruitInput
+            formControlName="categories"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let category of filteredCategories | async" [value]="category">
+            {{category.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput type="text" formControlName="description"></textarea>
+        <mat-error *ngIf="description.hasError('maxlength')">
+          <strong>Required length must be maximum 255 characters length</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Year</mat-label>
+        <input matInput type="number" formControlName="year" />
+        <mat-error *ngIf="year.hasError('pattern')">
+          <strong>Invalid Year format (1900-2099)</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Length (minutes)</mat-label>
+        <input matInput type="number" formControlName="length" />
+        <mat-error *ngIf="length.hasError('pattern')">
+          <strong>Invalid Length format (numbers, maximum 3 digits)</strong>
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button type="submit" color="primary"
+        [disabled]="!form.valid">Add</button>
+    </form>
+  </div>
+</div>

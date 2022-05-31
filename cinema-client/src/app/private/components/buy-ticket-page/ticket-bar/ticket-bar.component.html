@@ -1,0 +1,4 @@
+<div class="bar" [ngClass]="[this.purchased ? 'purchased' : 'cart']">
+  <mat-icon>{{this.purchased ? 'check_mark' : 'shopping_cart'}}</mat-icon>
+  <span>{{ticket?.row!+1}}, {{ticket?.column!+1}}</span>
+</div>

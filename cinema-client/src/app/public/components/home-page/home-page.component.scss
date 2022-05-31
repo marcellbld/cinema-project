@@ -1,0 +1,9 @@
+mat-list.movie-list {
+  height: auto !important;
+  display: flex;
+  flex-direction: column;
+  .movie-list-item {
+    display: block;
+    height: auto !important;
+  }
+}

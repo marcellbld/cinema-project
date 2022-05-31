@@ -1,0 +1,13 @@
+<div [style.width]="'700px'">
+  <div mat-subheader>MOVIES</div>
+  <ng-container *ngIf="this.authService.isLoggedIn() && this.authService.isAdmin()">
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <button mat-raised-button color="accent" [routerLink]="'/add-movie'">Film hozzáadása</button>
+    </div>
+  </ng-container>
+  <mat-grid-list class="movie-list" cols="2" rowHeight="250px">
+    <mat-grid-tile *ngFor="let movie of (this.movies$ | async)" class="movie-list-item">
+      <app-movie-block [movie]="movie" [routerLink]="['/movies', movie.id]"></app-movie-block>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

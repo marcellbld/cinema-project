@@ -1,0 +1,62 @@
+<div *ngIf="this.screening$ | async as screening" fxLayout="row" fxLayoutAlign="center" class="main">
+  <div fxFlex="25" fxLayout="column" fxLayoutAlign="start center" class="movie-container">
+    <div [style.margin-bottom]="'10px'">
+      <button mat-raised-button color="primary" (click)="this.back()">
+        <mat-icon>arrow_back</mat-icon>
+        <span>Back</span>
+      </button>
+    </div>
+    <div><img [src]="screening.movie?.imageUrl" width="100%" [style.border-radius]="'5px'"></div>
+    <div [style.text-align]="'center'">
+      <h3>
+        {{screening.movie?.title}} ({{screening.movie?.year}})
+      </h3>
+    </div>
+    <div>
+      <small>
+        {{screening.movie?.description}}
+      </small>
+    </div>
+    <div>
+      <h3>
+        My Tickets
+      </h3>
+      <div *ngIf="this.selfTickets$ | async as selfTickets; else noTickets">
+          <app-ticket-bar *ngFor="let ticket of selfTickets" [ticket]="ticket"
+            [style.margin-top]="'7px'" [purchased]="true">
+        </app-ticket-bar>
+        <app-ticket-bar *ngFor="let ticket of this.selectedSeats" [ticket]="ticket"
+        [style.margin-top]="'7px'" [purchased]="false">
+    </app-ticket-bar>
+      </div>
+      <ng-template #noTickets>Empty</ng-template>
+    </div>
+    <div [style.margin-top]="'7px'">
+      <button mat-raised-button color="primary" [disabled]="this.selectedSeats.length < 1" (click)="this.buyTickets()">Buy Tickets</button>
+    </div>
+  </div>
+  <div fxFlex="75" fxLayout="column" fxLayoutAlign="start center" *ngIf="this.selfTickets$ | async as tickets">
+    <div>
+      <h3>
+        {{this.screening.startTime | date:'YYYY.MM.dd' }} <b>{{this.screening.startTime | date:'HH:mm' }}</b>
+      </h3>
+    </div>
+    <div>
+      <div *ngFor="let item of [].constructor(this.screening.auditorium?.rows); let row = index">
+        <div fxLayout="row" [style.margin-bottom]="(row+1) % 3 == 0 ? '5px' : '0'">
+          <app-seat-block *ngFor="let item of [].constructor(this.screening.auditorium?.columns); let column = index"
+            [row]="row"
+            [column]="column"
+            [style.margin-left]="(column) % 3 == 0 ? '5px' : '0'"
+            (click)="this.selectSeat(row, column)"
+            [selfReserved]="this.isSelfReserved(row, column)"
+            [reserved]="this.isReserved(row, column)"
+            >
+          </app-seat-block>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- this.screening.auditorium?.rows -->

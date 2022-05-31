@@ -1,0 +1,18 @@
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.purchased {
+  background-color: rgb(58, 151, 212);
+  border: 1px solid rgb(206, 216, 224);
+}
+
+.cart {
+  background-color: rgb(115, 255, 80);
+  border: 1px solid rgb(206, 216, 224);
+}

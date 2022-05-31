@@ -1,0 +1,41 @@
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import { AuthService } from 'src/app/core/auth/auth.service';
+import { Ticket } from 'src/app/core/models/ticket/ticket';
+import { User } from 'src/app/core/models/user/user';
+import { TicketService } from 'src/app/core/services/ticket/ticket.service';
+import { UserService } from 'src/app/core/services/user/user.service';
+
+@Component({
+  selector: 'app-edit-tickets',
+  templateUrl: './edit-tickets.component.html',
+  styleUrls: ['./edit-tickets.component.scss'],
+})
+export class EditTicketsComponent implements OnInit {
+  tickets$: Observable<Ticket[]> | undefined;
+
+  form = new FormGroup({
+    fullName: new FormControl('', [
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(15),
+    ]),
+    phone: new FormControl('', [
+      Validators.required,
+      Validators.minLength(9),
+      Validators.maxLength(10),
+    ]),
+  });
+
+  constructor(
+    private authService: AuthService,
+    private ticketService: TicketService
+  ) {}
+
+  ngOnInit(): void {
+    this.ticketService
+      .getAllSelfTickets()
+      .subscribe((val) => (this.tickets$ = of(val)));
+  }
+}

@@ -1,0 +1,13 @@
+<mat-card class="bar" fxLayout="row" fxLayoutAlign="space-between center">
+  <div>
+    {{screening?.startTime | date:'YYYY.MM.dd' }} <b>{{screening?.startTime | date:'HH:mm' }}</b>
+  </div>
+  <div>
+    <span>
+      Terem: {{screening?.auditorium?.id}}
+    </span>
+    <span [style.margin-left]="'10px'" *ngIf="this.authService.isLoggedIn()">
+      <button mat-raised-button color="primary" [routerLink]="['/buy-ticket', screening?.id]">Kiválaszt</button>
+    </span>
+  </div>
+</mat-card>

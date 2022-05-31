@@ -1,0 +1,16 @@
+<div *ngIf="this.tickets$ | async as tickets" fxLayout="column" fxLayoutAlign="start center">
+  <h2>My Tickets</h2>
+  <div>
+    <div *ngFor="let ticket of tickets" fxLayout="column" [style.margin-bottom]="'7px'">
+      <div fxLayout="row">
+        <span [style.margin-right]="'3px'">{{ticket.screening?.movie?.title}}</span>
+        <span>({{ticket.screening?.startTime | date:'MM.dd' }} <b>{{ticket.screening?.startTime | date:'HH:mm' }}</b>)</span>
+      </div>
+      <div fxLayout="row">
+        <app-ticket-bar [ticket]="ticket" [purchased]="true">
+        </app-ticket-bar>
+        <button mat-icon-button color="warn"><mat-icon>delete</mat-icon></button>
+      </div>
+    </div>
+  </div>
+</div>

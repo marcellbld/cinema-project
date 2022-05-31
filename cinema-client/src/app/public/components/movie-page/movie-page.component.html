@@ -1,0 +1,49 @@
+<div *ngIf="this.movie$ | async as movie">
+  <div fxLayout="row">
+    <div><img [src]="this.movie.imageUrl" width="400px" [style.border-radius]="'5px'"></div>
+    <div fxLayout="column" [style.margin]="'10px'">
+      <h1>{{movie?.title}} ({{movie?.year}})</h1>
+      <p>{{movie?.description}}</p>
+      <p>Hossz: {{(movie?.length!-(60*60*1000)) | date:'H'}} óra {{movie?.length | date:'mm'}} perc</p>
+      <div>
+        <span>Kategóriák:</span>
+        <mat-chip-list aria-label="Movie categories">
+          <mat-chip *ngFor="let category of movie?.categories" color="primary" [selectable]="false" selected>
+            {{category.name}}
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+    </div>
+  </div>
+  <div mat-subheader>Jegyvásárlás</div>
+  <ng-container *ngIf="!this.authService.isLoggedIn()">
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <button mat-stroked-button color="warn" [routerLink]="'/login'">Jegyvásárláshoz kérjük jelentkezz be!</button>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="this.authService.isLoggedIn() && this.authService.isAdmin()">
+    <!-- <div fxLayout="row" fxLayoutAlign="center center">
+      <button mat-raised-button color="accent">Vetítés hozzáadása</button>
+    </div> -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header
+      [style.background-color]="'#FF4081'"
+      [style.color]="'white'"
+      >
+        Vetítés hozzáadása
+      </mat-expansion-panel-header>
+    
+      <ng-template matExpansionPanelContent>
+        <app-add-screening-panel [movie]="this.movie"></app-add-screening-panel>
+      </ng-template>
+    </mat-expansion-panel>
+  </ng-container>
+  <div *ngIf="movie?.screenings && movie?.screenings!.length > 0; else screeningList">
+    <mat-list>
+      <mat-list-item *ngFor="let screening of movie?.screenings" [style.height]="'auto'" [style.margin]="'10px 0'">
+        <app-screening-bar [screening]="screening" [style.width]="'100%'"></app-screening-bar>
+      </mat-list-item>
+    </mat-list>
+  </div>
+  <ng-template #screeningList>Nincs vetítés</ng-template>
+</div>

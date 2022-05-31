@@ -1,0 +1,8 @@
+<div class="block"
+ [ngClass]="[this.reserved ? (this.selfReserved ? 'self-reserved' : 'reserved') :
+      (this.selfReserved ? 'selected' : 'empty')]">
+  {{row+1}}, {{column+1}}
+</div>
+
+<!-- [style.backgroundColor]="this.reserved ?
+(this.selfReserved ? 'yellow' : 'red') : 'aliceblue'" -->
