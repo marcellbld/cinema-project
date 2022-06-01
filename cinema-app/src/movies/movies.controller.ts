@@ -1,4 +1,7 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { Roles } from 'src/auth/roles';
+import { UserRole } from 'src/users/user-role';
 import { MovieDto } from './dto/movie.dto';
 import { MoviesService } from './movies.service';
 
@@ -6,7 +9,8 @@ import { MoviesService } from './movies.service';
 export class MoviesController {
   constructor(private moviesService: MoviesService) {}
 
-  //TODO only admin
+  @UseGuards(JwtAuthGuard)
+  @Roles(UserRole.Admin)
   @Post()
   async create(@Body() movieDto: MovieDto): Promise<MovieDto> {
     return new MovieDto(await this.moviesService.create(movieDto));
@@ -22,14 +26,5 @@ export class MoviesController {
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<MovieDto> {
     return new MovieDto(await this.moviesService.findOne(id));
-  }
-
-  @Get('categories/:id')
-  async findAllByCategory(
-    @Param('id') categoryId: number,
-  ): Promise<MovieDto[]> {
-    return (await this.moviesService.findAllByCategory(categoryId)).map(
-      (movie) => new MovieDto(movie),
-    );
   }
 }
