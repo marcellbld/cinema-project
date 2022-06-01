@@ -29,4 +29,8 @@ export class TicketService {
       screening,
     }) as Observable<Ticket[]>;
   }
+
+  delete(id: number): Observable<boolean> {
+    return this.http.delete(`/api/tickets/${id}`) as Observable<boolean>;
+  }
 }

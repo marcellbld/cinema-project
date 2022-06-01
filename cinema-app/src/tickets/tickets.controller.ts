@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Delete,
   ForbiddenException,
   Get,
   Param,
@@ -79,5 +80,21 @@ export class TicketsController {
     return (
       await this.ticketsService.create(createTicketsDto, user, screening)
     ).map((ticket) => new TicketDto(ticket));
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete('/:id')
+  async delete(
+    @Param('id', ParseIntPipe) id: number,
+    @UserParam() ctxUser: UserDto,
+  ): Promise<boolean> {
+    const ticket = await this.ticketsService.findOne(id);
+    if (ticket.user.id !== ctxUser.id) {
+      throw new ForbiddenException();
+    }
+
+    await this.ticketsService.delete(ticket);
+
+    return true;
   }
 }

@@ -8,22 +8,33 @@ import { Ticket } from './entities/ticket.model';
 
 @Injectable()
 export class TicketsService {
-  findAllByUser(user: User) {
+  constructor(
+    @InjectRepository(Ticket)
+    private ticketsRepository: EntityRepository<Ticket>,
+  ) {}
+
+  findOne(id: number): Promise<Ticket> {
+    return this.ticketsRepository.findOne(id);
+  }
+
+  findAllByUser(user: User): Promise<Ticket[]> {
     return this.ticketsRepository.find(
       { user },
       { populate: ['screening', 'screening.movie'] },
     );
   }
-  constructor(
-    @InjectRepository(Ticket)
-    private ticketsRepository: EntityRepository<Ticket>,
-  ) {}
 
   async findAllByUserAndScreening(
     user: User,
     screening: Screening,
   ): Promise<Ticket[]> {
     return this.ticketsRepository.find({ user, screening });
+  }
+
+  async delete(ticket: Ticket) {
+    await this.ticketsRepository.removeAndFlush(ticket);
+
+    return true;
   }
 
   async create(
