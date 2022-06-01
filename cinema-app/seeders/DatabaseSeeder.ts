@@ -93,14 +93,10 @@ export class DatabaseSeeder extends Seeder {
           r: faker.datatype.number({ min: 0, max: randomAuditorium.rows }),
           c: faker.datatype.number({ min: 0, max: randomAuditorium.columns }),
         };
-        console.log('seats ', seats);
-
-        console.log('rSeat ', randomSeat);
         if (!seats.find((s) => s.r === randomSeat.r && s.c === randomSeat.c)) {
           seats.push(randomSeat);
         }
       }
-      console.log('seatsf ', seats);
       for (const seat of seats) {
         tickets.push(
           em.create(Ticket, {

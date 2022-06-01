@@ -86,8 +86,6 @@ export class BuyTicketPageComponent implements OnInit, OnDestroy {
       this.ticketService
         .create(this.selectedSeats, this._screening)
         .subscribe((val) => {
-          console.log(val);
-
           this._tickets.push(...val);
           this.selfTickets.push(...val);
           this.selfTickets$ = of(this.selfTickets);

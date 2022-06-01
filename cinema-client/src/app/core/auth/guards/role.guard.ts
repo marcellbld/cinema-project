@@ -25,8 +25,6 @@ export class RoleGuard implements CanActivate {
     if (this.authService.isLoggedIn() && this.authService.loggedInUser()) {
       const userRole = this.authService.loggedInUser()!.role;
 
-      console.log(route.data['role']);
-
       if (route.data['role'] && userRole === route.data['role']) {
         return true;
       }

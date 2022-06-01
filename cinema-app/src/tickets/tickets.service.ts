@@ -52,8 +52,6 @@ export class TicketsService {
 
     await this.ticketsRepository.persistAndFlush(tickets);
 
-    console.log(tickets);
-
     return tickets;
   }
 }

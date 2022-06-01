@@ -30,8 +30,7 @@ export class MoviePageComponent implements OnInit {
         catchError(() => {
           this.router.navigate(['/']);
           return [];
-        }),
-        tap((val) => console.log(val))
+        })
       )
       .subscribe((val) => (this.movie$ = of(val)));
   }
