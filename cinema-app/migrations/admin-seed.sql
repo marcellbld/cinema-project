@@ -1,1 +1,3 @@
 insert into user (username, password, full_name, phone, role) values ('admin', '$2b$12$i5uF/J6nYmnYWdK5XuzFVeWfDN/AoOGj/0UB9EimjlPWP27hz7TQW', 'Admin', 'adminphone', 'ADMIN');
+insert into auditorium (rows, columns) values (5, 8), (5, 10), (6, 12), (8, 10), (6, 8), (10, 12);
+insert into categories (name) values ('Horror'), ('Thriller'), ('Comedy'), ('Drama'), ('Documentary'), ('History'), ('Action'), ('Sci-fi'), ('Western'), ('Romance');
