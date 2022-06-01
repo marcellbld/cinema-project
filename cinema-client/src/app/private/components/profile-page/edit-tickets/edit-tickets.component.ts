@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { Ticket } from 'src/app/core/models/ticket/ticket';
@@ -30,12 +31,23 @@ export class EditTicketsComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private ticketService: TicketService
+    private ticketService: TicketService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.ticketService
       .getAllSelfTickets()
       .subscribe((val) => (this.tickets$ = of(val)));
+  }
+
+  delete(id: number): void {
+    this.ticketService.delete(id).subscribe((success) => {
+      if (success) {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate(['/profile']);
+      }
+    });
   }
 }
