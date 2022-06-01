@@ -9,7 +9,7 @@
       <div fxLayout="row">
         <app-ticket-bar [ticket]="ticket" [purchased]="true">
         </app-ticket-bar>
-        <button mat-icon-button color="warn"(click)="this.delete(ticket.id)" ><mat-icon>delete</mat-icon></button>
+        <button mat-icon-button color="warn"(click)="this.delete(ticket.id!)" ><mat-icon>delete</mat-icon></button>
       </div>
     </div>
   </div>
