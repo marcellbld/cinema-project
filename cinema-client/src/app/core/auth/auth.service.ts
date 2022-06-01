@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable, tap, throwError } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { LoginResponse } from '../models/user/login-response';
 import { User, UserRole } from '../models/user/user';
 import { UserAuth } from '../models/user/user-auth';
@@ -52,48 +51,44 @@ export class AuthService {
   }
 
   login(user: UserAuth): Observable<LoginResponse> {
-    return this.http
-      .post<LoginResponse>(`${environment.apiUrl}/users/login`, user)
-      .pipe(
-        tap({
-          next: (res: LoginResponse) => {
-            const decodedUser = this.jwtHelperService.decodeToken(
-              res.access_token
-            );
+    return this.http.post<LoginResponse>(`/api/users/login`, user).pipe(
+      tap({
+        next: (res: LoginResponse) => {
+          const decodedUser = this.jwtHelperService.decodeToken(
+            res.access_token
+          );
 
-            const result = {
-              access_token: res.access_token,
-              user: decodedUser,
-            };
+          const result = {
+            access_token: res.access_token,
+            user: decodedUser,
+          };
 
-            this.authStorageService.saveUser(result);
-            this.setLoginResponse(result);
-            console.log('Login successful');
-          },
-          error: (error) => {
-            console.log('Login failed');
+          this.authStorageService.saveUser(result);
+          this.setLoginResponse(result);
+          console.log('Login successful');
+        },
+        error: (error) => {
+          console.log('Login failed');
 
-            return throwError(() => new Error(error));
-          },
-        })
-      );
+          return throwError(() => new Error(error));
+        },
+      })
+    );
   }
 
   register(user: User): Observable<LoginResponse> {
-    return this.http
-      .post<LoginResponse>(`${environment.apiUrl}/users`, user)
-      .pipe(
-        tap({
-          next: (res: LoginResponse) => {
-            console.log('Registration successful');
-          },
-          error: (error) => {
-            console.log('Registration failed');
+    return this.http.post<LoginResponse>(`/api/users`, user).pipe(
+      tap({
+        next: (res: LoginResponse) => {
+          console.log('Registration successful');
+        },
+        error: (error) => {
+          console.log('Registration failed');
 
-            return throwError(() => new Error(error));
-          },
-        })
-      );
+          return throwError(() => new Error(error));
+        },
+      })
+    );
   }
 
   private setLoginResponse(result: LoginResponse | null) {

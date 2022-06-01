@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap, throwError } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { User } from '../../models/user/user';
 
 @Injectable({
@@ -21,11 +20,11 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   findById(id: number): Observable<User> {
-    return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
+    return this.http.get<User>(`/api/users/${id}`);
   }
 
   create(user: User): Observable<User> {
-    return this.http.post<User>(`${environment.apiUrl}/users`, user).pipe(
+    return this.http.post<User>(`/api/users`, user).pipe(
       tap({
         next: (user: User) => {
           console.log('User successfully created', user);
@@ -40,7 +39,7 @@ export class UserService {
   }
 
   update(user: User): Observable<User> {
-    return this.http.patch<User>(`${environment.apiUrl}/users`, user).pipe(
+    return this.http.patch<User>(`/api/users`, user).pipe(
       tap({
         next: (user: User) => {
           console.log('User successfully edited', user);
