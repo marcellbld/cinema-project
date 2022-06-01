@@ -2,15 +2,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TopBarComponent } from './top-bar.component';
 
-describe('TopBarComponent', () => {
+xdescribe('TopBarComponent', () => {
   let component: TopBarComponent;
   let fixture: ComponentFixture<TopBarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TopBarComponent ]
-    })
-    .compileComponents();
+      declarations: [TopBarComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

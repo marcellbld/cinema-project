@@ -7,7 +7,7 @@ import { Movie } from 'src/app/core/models/movie/movie';
   styleUrls: ['./movie-block.component.scss'],
 })
 export class MovieBlockComponent implements OnInit {
-  @Input() movie: Movie | undefined;
+  @Input() movie!: Movie;
 
   constructor() {}
 

@@ -2,15 +2,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TicketBarComponent } from './ticket-bar.component';
 
-describe('TicketBarComponent', () => {
+xdescribe('TicketBarComponent', () => {
   let component: TicketBarComponent;
   let fixture: ComponentFixture<TicketBarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TicketBarComponent ]
-    })
-    .compileComponents();
+      declarations: [TicketBarComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

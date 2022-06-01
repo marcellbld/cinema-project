@@ -2,15 +2,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddScreeningPanelComponent } from './add-screening-panel.component';
 
-describe('AddScreeningPanelComponent', () => {
+xdescribe('AddScreeningPanelComponent', () => {
   let component: AddScreeningPanelComponent;
   let fixture: ComponentFixture<AddScreeningPanelComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddScreeningPanelComponent ]
-    })
-    .compileComponents();
+      declarations: [AddScreeningPanelComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
