@@ -27,4 +27,12 @@ export class MoviesController {
   async findOne(@Param('id') id: number): Promise<MovieDto> {
     return new MovieDto(await this.moviesService.findOne(id));
   }
+  @Get('categories/:id')
+  async findAllByCategory(
+    @Param('id') categoryId: number,
+  ): Promise<MovieDto[]> {
+    return (await this.moviesService.findAllByCategory(categoryId)).map(
+      (movie) => new MovieDto(movie),
+    );
+  }
 }
